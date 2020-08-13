@@ -1,0 +1,19 @@
+import React, { useEffect } from 'react';
+import queryString from 'query-string';
+
+// import { Container } from './styles';
+
+function Callback() {
+    useEffect(() => {
+        const hash = queryString.parse(window.location.hash);
+
+        if (hash.access_token) {
+            localStorage.setItem('@spotify-token', hash.access_token);
+            window.location.href = '/';
+        }
+    }, []);
+
+    return <div />;
+}
+
+export default Callback;

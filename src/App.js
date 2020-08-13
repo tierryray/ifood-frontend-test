@@ -1,21 +1,24 @@
 import React from 'react';
-import { CssBaseline, Container } from '@material-ui/core';
+import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 
-import Header from './components/Header';
+import { AuthProvider } from './contexts/auth';
+
+import Routes from './routes/routes';
 
 // import theme from './styles/theme';
 
-function App() {
-  return (
-    <ThemeProvider>
-      <CssBaseline />
+//  TODO: use o Router, crie um dumb component que pegue o token e sete no localStorage, e redirecione o usuário para a Home Page
 
-      <Container maxWidth="sm">
-        <Header />
-      </Container>
-    </ThemeProvider>
-  );
+function App() {
+    return (
+        <ThemeProvider>
+            <CssBaseline />
+            <AuthProvider>
+                <Routes />
+            </AuthProvider>
+        </ThemeProvider>
+    );
 }
 
 export default App;
