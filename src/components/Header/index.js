@@ -1,14 +1,25 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Toolbar } from '@material-ui/core';
+
+import { StyledAppBar, Logo } from './styles';
+
+import Search from '../Search';
+
+import iFoodWhiteLogo from '../../assets/images/logo/ifood-white.png';
 
 // import { Container } from './styles';
 
 function Header() {
-  return (
-      <Typography variant="h2">
-          SpotiFood
-      </Typography>
-  )
+    return (
+        <StyledAppBar position="static">
+            <Toolbar>
+                <Logo>
+                    <img src={iFoodWhiteLogo} alt="iFood" />
+                </Logo>
+                <Search />
+            </Toolbar>
+        </StyledAppBar>
+    );
 }
 
 export default Header;

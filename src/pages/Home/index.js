@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import api from '../../services/api';
 
 import Filters from './Filters';
+import Header from '../../components/Header';
 
 function Home() {
     const [playlists, setPlaylists] = useState([]);
@@ -30,8 +31,8 @@ function Home() {
 
     return (
         <div>
-            <h1>Logado!</h1>
-            <Filters onSubmit={handleSubmit} />
+            <Header />
+            {/* <Filters onSubmit={handleSubmit} /> */}
         </div>
     );
 }
