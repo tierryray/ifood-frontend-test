@@ -1,18 +1,26 @@
 import React from 'react';
 import { CssBaseline } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { AuthProvider } from './contexts/auth';
 
 import Routes from './routes/routes';
 
-// import theme from './styles/theme';
+const theme = createMuiTheme({});
 
-//  TODO: use o Router, crie um dumb component que pegue o token e sete no localStorage, e redirecione o usuário para a Home Page
+/**
+ * TODO:
+ * 1 - Consumir api de filtros e exibir eles dinamicamente
+ * 2 - Montar Grid com lista das playlists e o card pra cada playlist
+ * 3 - Funcionamento do searchbar
+ * 5 - Layout! Capriche no negócio
+ * 6 (opcional) - Expiração do token
+ * OBS: considere usar o useMemo: https://medium.com/reactbrasil/react-usememo-na-pr%C3%A1tica-692110771c01
+ */
 
 function App() {
     return (
-        <ThemeProvider>
+        <ThemeProvider theme={theme}>
             <CssBaseline />
             <AuthProvider>
                 <Routes />

@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         api.defaults.headers.authorization = `Bearer ${accessToken}`;
 
         setToken(accessToken);
-    });
+    }, []);
 
     const signOut = useCallback(() => {
         setLoading(true);
