@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Form } from '@unform/web';
+import { format } from 'date-fns';
 
 import axios from 'axios';
 
@@ -11,11 +12,28 @@ function Filters({ onSubmit }) {
     const filterEndpoint = 'http://www.mocky.io/v2/5a25fade2e0000213aa90776';
 
     const [filters, setFilters] = useState([]);
+
+    const [text, setText] = useState(null);
+    const [select, setSelect] = useState(null);
+    const [timestamp, setTimestamp] = useState('');
     const formRef = useRef(null);
 
-    const getForm = useCallback(() => {
-        return formRef;
-    }, [formRef]);
+    const handleTextChange = useCallback((event) => {
+        setText(event.target.value);
+    }, []);
+
+    const handleSelectChange = useCallback((event) => {
+        setSelect(event.value);
+    }, []);
+
+    const handleDateChange = useCallback((date) => {
+        const formatedTimestamp = format(date, "yyyy-MM-dd'T'HH:mm:ss");
+        setTimestamp(formatedTimestamp);
+    }, []);
+
+    useEffect(() => {
+        formRef.current.submitForm();
+    }, [text, select, timestamp]);
 
     useEffect(() => {
         (async () => {
@@ -57,9 +75,9 @@ function Filters({ onSubmit }) {
 
     return (
         <Form ref={formRef} onSubmit={onSubmit}>
-            {filters.map((filter) => {
-                if (filter.type === 'SELECT') {
-                    return (
+            {filters.map((filter) => (
+                <>
+                    {filter.type === 'SELECT' && (
                         <SelectFilter
                             key={filter.id}
                             name={filter.id}
@@ -67,32 +85,29 @@ function Filters({ onSubmit }) {
                                 value,
                                 label: name,
                             }))}
-                            onChange={() => formRef.current.submitForm()}
+                            onChange={handleSelectChange}
                         />
-                    );
-                }
+                    )}
 
-                if (filter.type === 'DATE') {
-                    return (
+                    {filter.type === 'DATE' && (
                         <DateFilter
                             key={filter.id}
                             name={filter.id}
-                            getParentForm={getForm}
-                            // onChange={() => formRef.current.submitForm()}
+                            onTimestampChange={handleDateChange}
                         />
-                    );
-                }
+                    )}
 
-                return (
-                    <TextFilter
-                        key={filter.id}
-                        name={filter.id}
-                        type={filter.type.toLowerCase()}
-                        label={filter.name}
-                        onChange={() => formRef.current.submitForm()}
-                    />
-                );
-            })}
+                    {filter.type === 'NUMBER' && (
+                        <TextFilter
+                            key={filter.id}
+                            name={filter.id}
+                            type={filter.type.toLowerCase()}
+                            label={filter.name}
+                            onChange={handleTextChange}
+                        />
+                    )}
+                </>
+            ))}
         </Form>
     );
 }

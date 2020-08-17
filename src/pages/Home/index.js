@@ -24,6 +24,7 @@ function Home() {
         getFeaturedPlaylists();
     }, [params]);
 
+    //  yup Validation
     const handleSubmit = useCallback((data) => {
         console.log(data);
         setParams(data);
@@ -32,7 +33,7 @@ function Home() {
     return (
         <div>
             <Header />
-            {/* <Filters onSubmit={handleSubmit} /> */}
+            <Filters onSubmit={handleSubmit} />
         </div>
     );
 }

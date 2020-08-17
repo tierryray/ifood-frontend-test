@@ -5,36 +5,32 @@ import { useField } from '@unform/core';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function DatePicker({ name, getParentForm, ...rest }) {
+export default function DatePicker({ name, onTimestampChange, ...rest }) {
     const datepickerRef = useRef(null);
     const { fieldName, registerField, defaultValue, error } = useField(name);
 
-    const [date, setDate] = useState(defaultValue || null);
-
-    const handleChange = useCallback(() => {
-        setDate();
-        const formRef = getParentForm();
-        formRef.current.submitForm();
-    }, [getParentForm, setDate]);
+    const [date, setDate] = useState(defaultValue || new Date());
 
     useEffect(() => {
         registerField({
             name: fieldName,
             ref: datepickerRef.current,
             path: 'props.selected',
-            clearValue: (ref) => {
-                ref.clear();
-            },
         });
     }, [fieldName, registerField]);
+
+    const handleTimestampChange = useCallback((date) => {
+        setDate(date);
+        onTimestampChange(date);
+    }, []);
 
     return (
         <ReactDatePicker
             //  yyyy-MM-ddTHH:mm:ss
-            dateFormat="dd/MM/yyyy HH:mm:ss"
+            dateFormat="dd/MM/yyyy"
             ref={datepickerRef}
             selected={date}
-            onChange={handleChange}
+            onChange={handleTimestampChange}
             {...rest}
         />
     );

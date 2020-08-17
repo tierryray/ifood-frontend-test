@@ -17,6 +17,7 @@ export default function SelectFilter({ name, ...rest }) {
             },
         });
     }, [fieldName, registerField]);
+
     return (
         <Select
             defaultValue={defaultValue}

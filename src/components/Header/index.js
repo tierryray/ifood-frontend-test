@@ -5,7 +5,7 @@ import { StyledAppBar, Logo } from './styles';
 
 import Search from '../Search';
 
-import iFoodWhiteLogo from '../../assets/images/logo/ifood-white.png';
+import iFoodRedLogo from '../../assets/images/logo/ifood-red.png';
 
 // import { Container } from './styles';
 
@@ -14,7 +14,7 @@ function Header() {
         <StyledAppBar position="static">
             <Toolbar>
                 <Logo>
-                    <img src={iFoodWhiteLogo} alt="iFood" />
+                    <img src={iFoodRedLogo} alt="iFood" />
                 </Logo>
                 <Search />
             </Toolbar>
