@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { AppBar, Box, IconButton } from '@material-ui/core';
+import { AppBar, Box, Toolbar } from '@material-ui/core';
 
 export const StyledAppBar = styled(AppBar)`
     background: #fff;
@@ -8,6 +8,17 @@ export const StyledAppBar = styled(AppBar)`
 
     .MuiToolbar-gutters {
         padding: 10px 20px;
+    }
+`;
+
+export const StyledToolbar = styled(Toolbar)`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .toolbar__left {
+        display: flex;
+        align-items: center;
     }
 `;
 

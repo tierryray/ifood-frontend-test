@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 export default function DatePicker({ name, onTimestampChange, ...rest }) {
     const datepickerRef = useRef(null);
-    const { fieldName, registerField, defaultValue, error } = useField(name);
+    const { fieldName, registerField, defaultValue } = useField(name);
 
     const [date, setDate] = useState(defaultValue || new Date());
 

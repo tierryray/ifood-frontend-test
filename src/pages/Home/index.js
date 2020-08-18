@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { Collapse, Container } from '@material-ui/core';
 
 import api from '../../services/api';
 
-import Filters from './Filters';
 import Header from '../../components/Header';
+import Filters from './Filters';
+import FilterButton from '../../components/FilterButton';
 
 function Home() {
     const [playlists, setPlaylists] = useState([]);
     const [params, setParams] = useState({});
+    const [filtersVisibility, setFiltersVisibility] = useState(false);
 
     useEffect(() => {
         async function getFeaturedPlaylists() {
@@ -18,7 +21,7 @@ function Home() {
                 const { items } = data.playlists;
                 setPlaylists(items);
             } catch (error) {
-                // console.log(error);
+                console.log(error);
             }
         }
         getFeaturedPlaylists();
@@ -26,14 +29,32 @@ function Home() {
 
     //  yup Validation
     const handleSubmit = useCallback((data) => {
-        console.log(data);
         setParams(data);
     }, []);
 
     return (
         <div>
-            <Header />
-            <Filters onSubmit={handleSubmit} />
+            <Header
+                filtersVisibility={filtersVisibility}
+                setFiltersVisibility={setFiltersVisibility}
+            />
+
+            <Container>
+                {/* <FilterButton
+                    component="span"
+                    onClick={() => setFiltersVisibility(!filtersVisibility)}
+                >
+                    <FilterIcon style={{ color: '#ea1d2c' }} />
+                </FilterButton> */}
+                <FilterButton
+                    filtersVisibility={filtersVisibility}
+                    setFiltersVisibility={setFiltersVisibility}
+                    isMobile
+                />
+                <Collapse in={filtersVisibility}>
+                    <Filters onSubmit={handleSubmit} />
+                </Collapse>
+            </Container>
         </div>
     );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Form } from '@unform/web';
 import { format } from 'date-fns';
+import * as Yup from 'yup';
 
 import axios from 'axios';
 
@@ -8,18 +9,22 @@ import TextFilter from './TextFilter';
 import SelectFilter from './SelectFilter';
 import DateFilter from './DateFilter';
 
-function Filters({ onSubmit }) {
+function Filters({ onSubmit, errors }) {
     const filterEndpoint = 'http://www.mocky.io/v2/5a25fade2e0000213aa90776';
 
     const [filters, setFilters] = useState([]);
 
-    const [text, setText] = useState(null);
+    const [params, setParams] = useState({});
     const [select, setSelect] = useState(null);
     const [timestamp, setTimestamp] = useState('');
     const formRef = useRef(null);
 
     const handleTextChange = useCallback((event) => {
-        setText(event.target.value);
+        const { name, value } = event.target;
+        setParams((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
     }, []);
 
     const handleSelectChange = useCallback((event) => {
@@ -32,13 +37,50 @@ function Filters({ onSubmit }) {
     }, []);
 
     useEffect(() => {
-        formRef.current.submitForm();
-    }, [text, select, timestamp]);
+        (async () => {
+            try {
+                const data = formRef.current.getData();
+                formRef.current.setErrors({});
+
+                const schema = Yup.object().shape({
+                    locale: Yup.string(),
+                    country: Yup.string(),
+                    timestamp: Yup.date(),
+                    limit: Yup.number()
+                        .nullable(true)
+                        .transform((v, o) => (o === '' ? null : v))
+                        .min(1, 'O valor precisa ser maior que 1')
+                        .max(50, 'O valor precisa ser menor que 50'),
+                    offset: Yup.number()
+                        .nullable(true)
+                        .transform((v, o) => (o === '' ? null : v)),
+                });
+
+                await schema.validate(data, {
+                    abortEarly: false,
+                });
+
+                formRef.current.submitForm();
+            } catch (err) {
+                const validationErrors = {};
+
+                if (err instanceof Yup.ValidationError) {
+                    err.inner.forEach((error) => {
+                        validationErrors[error.path] = error.message;
+                    });
+
+                    formRef.current.setErrors(validationErrors);
+                }
+            }
+        })();
+    }, [params, select, timestamp]);
 
     useEffect(() => {
         (async () => {
             try {
                 const { data } = await axios.get(filterEndpoint);
+                const dinamicParams = {};
+
                 const newFilters = data.filters.map((filter) => {
                     if (filter.values) {
                         return {
@@ -58,6 +100,7 @@ function Filters({ onSubmit }) {
 
                     if (filter?.validation?.primitiveType) {
                         if (filter.validation.primitiveType === 'INTEGER') {
+                            dinamicParams[filter.id] = '';
                             return {
                                 ...filter,
                                 type: 'NUMBER',
@@ -66,6 +109,7 @@ function Filters({ onSubmit }) {
                     }
                 });
 
+                setParams(dinamicParams);
                 setFilters(newFilters);
             } catch (error) {
                 console.log(error);
@@ -76,7 +120,7 @@ function Filters({ onSubmit }) {
     return (
         <Form ref={formRef} onSubmit={onSubmit}>
             {filters.map((filter) => (
-                <>
+                <div key={filter.id}>
                     {filter.type === 'SELECT' && (
                         <SelectFilter
                             key={filter.id}
@@ -106,7 +150,7 @@ function Filters({ onSubmit }) {
                             onChange={handleTextChange}
                         />
                     )}
-                </>
+                </div>
             ))}
         </Form>
     );

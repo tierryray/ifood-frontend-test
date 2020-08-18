@@ -4,7 +4,7 @@ import { useField } from '@unform/core';
 
 export default function SelectFilter({ name, ...rest }) {
     const selectRef = useRef(null);
-    const { fieldName, defaultValue, registerField, error } = useField(name);
+    const { fieldName, defaultValue, registerField } = useField(name);
     useEffect(() => {
         registerField({
             name: fieldName,

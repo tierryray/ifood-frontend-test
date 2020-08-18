@@ -6,6 +6,7 @@ import { TextField } from '@material-ui/core';
 export default function TextFilter({ name, ...rest }) {
     const inputRef = useRef(null);
     const materialInputRef = useRef(null);
+
     const { fieldName, defaultValue, registerField, error } = useField(name);
     useEffect(() => {
         registerField({
@@ -28,9 +29,13 @@ export default function TextFilter({ name, ...rest }) {
 
     return (
         <TextField
+            error={!!error}
             ref={materialInputRef}
             inputRef={inputRef}
             defaultValue={defaultValue}
+            helperText={error}
+            name={name}
+            variant="outlined"
             {...rest}
         />
     );
