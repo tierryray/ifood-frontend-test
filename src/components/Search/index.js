@@ -2,10 +2,14 @@ import React from 'react';
 
 import { SearchBox, SearchInput } from './styles';
 
-function Search() {
+function Search({ setSearchTerm }) {
     return (
         <SearchBox>
-            <SearchInput placeholder="Procurar..." />
+            <SearchInput
+                placeholder="Procurar..."
+                onChange={(value) => setSearchTerm(value)}
+                onCancelSearch={() => setSearchTerm('')}
+            />
         </SearchBox>
     );
 }

@@ -9,14 +9,28 @@ import FilterButton from '../../components/FilterButton';
 import Playlists from '../../components/Playlists';
 
 function Home() {
+    //  Initial state of playlist
     const [playlists, setPlaylists] = useState([]);
     const [params, setParams] = useState({});
     const [filtersVisibility, setFiltersVisibility] = useState(false);
 
+    const [filteredPlaylists, setFilteredPlaylists] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+
     useEffect(() => {
         async function getFeaturedPlaylists() {
+            const newParams = params;
+            // eslint-disable-next-line no-restricted-syntax
+            for (const prop in newParams) {
+                if (newParams[prop] === '' || newParams[prop] === undefined) {
+                    delete newParams[prop];
+                }
+            }
+
             try {
-                const { data } = await api.get('/browse/featured-playlists');
+                const { data } = await api.get('/browse/featured-playlists', {
+                    params: newParams,
+                });
                 const { items } = data.playlists;
                 setPlaylists(items);
             } catch (error) {
@@ -30,9 +44,40 @@ function Home() {
         setParams(data);
     }, []);
 
+    useEffect(() => {
+        if (!searchTerm) {
+            setFilteredPlaylists(playlists);
+        }
+
+        setFilteredPlaylists(
+            playlists.filter((playlist) =>
+                playlist.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+    }, [searchTerm, playlists]);
+
+    // const handleSearch = useCallback(
+    //     (param) => {
+    //         console.log(playlists);
+    //         // if (!param) {
+    //         //     return playlists;
+    //         // }
+
+    //         // const teste = playlists.filter((playlist) =>
+    //         //     playlist.name.toLowerCase().includes(param.toLowerCase())
+    //         // );
+
+    //         // return playlists.filter((playlist) =>
+    //         //     playlist.name.toLowerCase().includes(param.toLowerCase())
+    //         // );
+    //     },
+    //     [playlists]
+    // );
+
     return (
         <div>
             <Header
+                setSearchTerm={setSearchTerm}
                 filtersVisibility={filtersVisibility}
                 setFiltersVisibility={setFiltersVisibility}
             />
@@ -45,7 +90,7 @@ function Home() {
                 <Collapse in={filtersVisibility}>
                     <Filters onSubmit={handleSubmit} />
                 </Collapse>
-                <Playlists playlists={playlists} />
+                <Playlists playlists={filteredPlaylists} />
             </Container>
         </div>
     );

@@ -9,7 +9,7 @@ import FilterButton from '../FilterButton';
 
 import iFoodRedLogo from '../../assets/images/logo/ifood-red.png';
 
-function Header({ filtersVisibility, setFiltersVisibility }) {
+function Header({ filtersVisibility, setFiltersVisibility, setSearchTerm }) {
     return (
         <StyledAppBar position="static">
             <Container>
@@ -18,7 +18,7 @@ function Header({ filtersVisibility, setFiltersVisibility }) {
                         <Logo>
                             <img src={iFoodRedLogo} alt="iFood" />
                         </Logo>
-                        <Search />
+                        <Search setSearchTerm={setSearchTerm} />
                     </div>
                     <FilterButton
                         filtersVisibility={filtersVisibility}
