@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Select } from 'unform-material-ui';
 import { MenuItem, FormControl } from '@material-ui/core';
 import { useField } from '@unform/core';
@@ -39,3 +40,9 @@ export default function SelectFilter({ name, label, options, ...rest }) {
         </FormControl>
     );
 }
+
+SelectFilter.propTypes = {
+    name: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
 
@@ -10,7 +11,7 @@ import DateFilter from './DateFilter';
 
 import { StyledForm } from './styles';
 
-function Filters({ onSubmit, errors }) {
+function Filters({ onSubmit }) {
     const filterEndpoint = 'http://www.mocky.io/v2/5a25fade2e0000213aa90776';
 
     const [filters, setFilters] = useState([]);
@@ -161,5 +162,9 @@ function Filters({ onSubmit, errors }) {
         </StyledForm>
     );
 }
+
+Filters.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+};
 
 export default Filters;

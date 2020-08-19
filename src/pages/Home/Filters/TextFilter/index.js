@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+
 import { useField } from '@unform/core';
 
 import { TextField } from '@material-ui/core';
@@ -43,3 +45,7 @@ export default function TextFilter({ name, ...rest }) {
         />
     );
 }
+
+TextFilter.propTypes = {
+    name: PropTypes.string.isRequired,
+};

@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useField } from '@unform/core';
 
 import { StyledDatePicker } from './styles';
@@ -37,3 +38,8 @@ export default function DatePicker({ name, onTimestampChange, ...rest }) {
         />
     );
 }
+
+DatePicker.propTypes = {
+    name: PropTypes.string.isRequired,
+    onTimestampChange: PropTypes.func.isRequired,
+};
