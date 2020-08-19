@@ -9,6 +9,7 @@ import Header from '../../components/Header';
 import Filters from './Filters';
 import FilterButton from '../../components/FilterButton';
 import Playlists from '../../components/Playlists';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 import useAuth from '../../hooks/useAuth';
 
@@ -23,6 +24,8 @@ function Home() {
     const [filteredPlaylists, setFilteredPlaylists] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         async function getFeaturedPlaylists() {
             const newParams = params;
@@ -34,6 +37,7 @@ function Home() {
             }
 
             try {
+                setLoading(true);
                 const { data } = await api.get('/browse/featured-playlists', {
                     params: newParams,
                 });
@@ -45,6 +49,8 @@ function Home() {
                 } else {
                     toast.error('Ops! Algo deu errado. Tente novamente!');
                 }
+            } finally {
+                setLoading(false);
             }
         }
         getFeaturedPlaylists();
@@ -67,13 +73,13 @@ function Home() {
     }, [searchTerm, playlists]);
 
     return (
-        <div>
+        <div style={{ height: '100%' }}>
             <Header
                 setSearchTerm={setSearchTerm}
                 filtersVisibility={filtersVisibility}
                 setFiltersVisibility={setFiltersVisibility}
             />
-            <Container>
+            <Container style={{ height: '85%' }}>
                 <FilterButton
                     filtersVisibility={filtersVisibility}
                     setFiltersVisibility={setFiltersVisibility}
@@ -82,7 +88,12 @@ function Home() {
                 <Collapse in={filtersVisibility}>
                     <Filters onSubmit={handleSubmit} />
                 </Collapse>
-                <Playlists playlists={filteredPlaylists} />
+
+                {loading ? (
+                    <LoadingSpinner />
+                ) : (
+                    <Playlists playlists={filteredPlaylists} />
+                )}
             </Container>
         </div>
     );
