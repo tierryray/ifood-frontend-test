@@ -26,7 +26,6 @@ export default function DatePicker({ name, onTimestampChange, ...rest }) {
 
     return (
         <StyledDatePicker
-            //  yyyy-MM-ddTHH:mm:ss
             dateFormat="dd/MM/yyyy"
             ref={datepickerRef}
             selected={date}

@@ -1,9 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Grid } from '@material-ui/core';
 
-// import { Container } from './styles';
+import PlaylistCard from '../PlaylistCard';
 
-function Playlists() {
-  return <div />;
+import { Section } from './styles';
+
+function Playlists({ playlists }) {
+    return (
+        <Section>
+            <Grid container spacing={3}>
+                {playlists.map((playlist) => (
+                    <PlaylistCard key={playlist.id} playlist={playlist} />
+                ))}
+            </Grid>
+        </Section>
+    );
 }
 
 export default Playlists;

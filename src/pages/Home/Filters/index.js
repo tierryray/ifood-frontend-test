@@ -15,7 +15,10 @@ function Filters({ onSubmit, errors }) {
 
     const [filters, setFilters] = useState([]);
 
-    const [params, setParams] = useState({});
+    const [params, setParams] = useState({
+        limit: 20,
+        offset: 1,
+    });
     const [select, setSelect] = useState(null);
     const [timestamp, setTimestamp] = useState('');
     const formRef = useRef(null);
@@ -41,6 +44,7 @@ function Filters({ onSubmit, errors }) {
         (async () => {
             try {
                 const data = formRef.current.getData();
+
                 formRef.current.setErrors({});
 
                 const schema = Yup.object().shape({
