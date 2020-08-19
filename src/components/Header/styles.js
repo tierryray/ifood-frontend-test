@@ -19,6 +19,7 @@ export const StyledToolbar = styled(Toolbar)`
     .toolbar__left {
         display: flex;
         align-items: center;
+        width: 100%;
     }
 `;
 

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import ReactDatePicker from 'react-datepicker';
-
 import { useField } from '@unform/core';
+
+import { StyledDatePicker } from './styles';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -25,7 +25,7 @@ export default function DatePicker({ name, onTimestampChange, ...rest }) {
     }, []);
 
     return (
-        <ReactDatePicker
+        <StyledDatePicker
             //  yyyy-MM-ddTHH:mm:ss
             dateFormat="dd/MM/yyyy"
             ref={datepickerRef}

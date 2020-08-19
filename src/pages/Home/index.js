@@ -38,14 +38,7 @@ function Home() {
                 filtersVisibility={filtersVisibility}
                 setFiltersVisibility={setFiltersVisibility}
             />
-
             <Container>
-                {/* <FilterButton
-                    component="span"
-                    onClick={() => setFiltersVisibility(!filtersVisibility)}
-                >
-                    <FilterIcon style={{ color: '#ea1d2c' }} />
-                </FilterButton> */}
                 <FilterButton
                     filtersVisibility={filtersVisibility}
                     setFiltersVisibility={setFiltersVisibility}

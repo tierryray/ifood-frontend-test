@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { Form } from '@unform/web';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
 
@@ -8,6 +7,8 @@ import axios from 'axios';
 import TextFilter from './TextFilter';
 import SelectFilter from './SelectFilter';
 import DateFilter from './DateFilter';
+
+import { StyledForm } from './styles';
 
 function Filters({ onSubmit, errors }) {
     const filterEndpoint = 'http://www.mocky.io/v2/5a25fade2e0000213aa90776';
@@ -28,7 +29,7 @@ function Filters({ onSubmit, errors }) {
     }, []);
 
     const handleSelectChange = useCallback((event) => {
-        setSelect(event.value);
+        setSelect(event.target.value);
     }, []);
 
     const handleDateChange = useCallback((date) => {
@@ -49,8 +50,8 @@ function Filters({ onSubmit, errors }) {
                     limit: Yup.number()
                         .nullable(true)
                         .transform((v, o) => (o === '' ? null : v))
-                        .min(1, 'O valor precisa ser maior que 1')
-                        .max(50, 'O valor precisa ser menor que 50'),
+                        .min(1, 'Deve ser maior que 1')
+                        .max(50, 'Deve ser menor que 50'),
                     offset: Yup.number()
                         .nullable(true)
                         .transform((v, o) => (o === '' ? null : v)),
@@ -118,13 +119,14 @@ function Filters({ onSubmit, errors }) {
     }, []);
 
     return (
-        <Form ref={formRef} onSubmit={onSubmit}>
+        <StyledForm ref={formRef} onSubmit={onSubmit}>
             {filters.map((filter) => (
-                <div key={filter.id}>
+                <div key={filter.id} className="unform__field">
                     {filter.type === 'SELECT' && (
                         <SelectFilter
                             key={filter.id}
                             name={filter.id}
+                            label={filter.name}
                             options={filter.values.map(({ name, value }) => ({
                                 value,
                                 label: name,
@@ -152,7 +154,7 @@ function Filters({ onSubmit, errors }) {
                     )}
                 </div>
             ))}
-        </Form>
+        </StyledForm>
     );
 }
 

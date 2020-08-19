@@ -3,7 +3,7 @@ import { IconButton } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
 
 export const StyledFilterButton = styled(IconButton)`
-    ${({ isMobile }) =>
+    ${({ styled: { isMobile } }) =>
         isMobile
             ? css`
                   @media screen and (min-width: 500px) {
@@ -18,5 +18,6 @@ export const StyledFilterButton = styled(IconButton)`
 `;
 
 export const FilterIcon = styled(FilterList)`
-    color: ${(props) => (props.clicked ? '#CCC' : '#ea1d2c')};
+    color: ${({ styled: { filtersVisibility } }) =>
+        filtersVisibility ? '#CCC' : '#ea1d2c'};
 `;

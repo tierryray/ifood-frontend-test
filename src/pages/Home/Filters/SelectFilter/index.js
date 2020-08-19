@@ -1,29 +1,41 @@
 import React, { useRef, useEffect } from 'react';
-import Select from 'react-select';
+import { Select } from 'unform-material-ui';
+import { MenuItem, FormControl } from '@material-ui/core';
 import { useField } from '@unform/core';
 
-export default function SelectFilter({ name, ...rest }) {
+export default function SelectFilter({ name, label, options, ...rest }) {
     const selectRef = useRef(null);
     const { fieldName, defaultValue, registerField } = useField(name);
     useEffect(() => {
         registerField({
             name: fieldName,
             ref: selectRef.current,
-            getValue: (ref) => {
-                if (!ref.state.value) {
-                    return '';
-                }
-                return ref.state.value.value;
-            },
+            path: 'value',
         });
     }, [fieldName, registerField]);
 
     return (
-        <Select
-            defaultValue={defaultValue}
-            ref={selectRef}
-            classNamePrefix="react-select"
-            {...rest}
-        />
+        <FormControl variant="outlined" size="small">
+            <Select
+                name={name}
+                defaultValue={defaultValue}
+                ref={selectRef}
+                variant="outlined"
+                margin="dense"
+                color="secondary"
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
+                {...rest}
+            >
+                <MenuItem value="" disabled>
+                    <em>{label}</em>
+                </MenuItem>
+                {options.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
     );
 }

@@ -36,6 +36,9 @@ export default function TextFilter({ name, ...rest }) {
             helperText={error}
             name={name}
             variant="outlined"
+            size="small"
+            style={{ zIndex: '0' }}
+            color="secondary"
             {...rest}
         />
     );

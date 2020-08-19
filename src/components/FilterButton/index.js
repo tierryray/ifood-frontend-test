@@ -7,9 +7,9 @@ function FilterButton({ filtersVisibility, setFiltersVisibility, isMobile }) {
         <StyledFilterButton
             component="span"
             onClick={() => setFiltersVisibility(!filtersVisibility)}
-            isMobile={isMobile}
+            styled={{ isMobile }}
         >
-            <FilterIcon clicked={filtersVisibility} />
+            <FilterIcon styled={{ filtersVisibility }} />
         </StyledFilterButton>
     );
 }
