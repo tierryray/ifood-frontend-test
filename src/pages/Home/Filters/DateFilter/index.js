@@ -20,9 +20,9 @@ export default function DatePicker({ name, onTimestampChange, ...rest }) {
     }, [fieldName, registerField]);
 
     const handleTimestampChange = useCallback(
-        (date) => {
-            setDate(date);
-            onTimestampChange(date);
+        (timestamp) => {
+            setDate(timestamp);
+            onTimestampChange(timestamp);
         },
         [onTimestampChange]
     );

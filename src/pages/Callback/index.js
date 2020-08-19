@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import queryString from 'query-string';
 
-// import { Container } from './styles';
-
 function Callback() {
     useEffect(() => {
         const hash = queryString.parse(window.location.hash);

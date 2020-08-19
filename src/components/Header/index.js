@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container } from '@material-ui/core';
 
@@ -30,5 +31,11 @@ function Header({ filtersVisibility, setFiltersVisibility, setSearchTerm }) {
         </StyledAppBar>
     );
 }
+
+Header.propTypes = {
+    filtersVisibility: PropTypes.bool.isRequired,
+    setFiltersVisibility: PropTypes.func.isRequired,
+    setSearchTerm: PropTypes.func.isRequired,
+};
 
 export default Header;

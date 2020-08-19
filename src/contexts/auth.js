@@ -1,17 +1,17 @@
 import React, { createContext, useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
 import api from '../services/api';
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
     const [token, setToken] = useState(() => {
         const accessToken = localStorage.getItem('@spotify:access_token');
 
         if (accessToken) {
             api.defaults.headers.authorization = `Bearer ${accessToken}`;
-            setLoading(false);
             return accessToken;
         }
 
@@ -32,10 +32,8 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const signOut = useCallback(() => {
-        setLoading(true);
         localStorage.removeItem('@spotify:access_token');
         setToken(null);
-        setLoading(false);
     }, []);
 
     return (
@@ -45,6 +43,10 @@ export const AuthProvider = ({ children }) => {
             {children}
         </AuthContext.Provider>
     );
+};
+
+AuthProvider.propTypes = {
+    children: PropTypes.node.isRequired,
 };
 
 export default AuthContext;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Grid } from '@material-ui/core';
 
@@ -19,5 +20,16 @@ function PlaylistCard({ playlist }) {
         </Grid>
     );
 }
+
+PlaylistCard.propTypes = {
+    playlist: PropTypes.objectOf(
+        PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.array,
+            PropTypes.bool,
+            PropTypes.string,
+        ])
+    ).isRequired,
+};
 
 export default PlaylistCard;

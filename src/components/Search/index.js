@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { SearchBox, SearchInput } from './styles';
 
@@ -13,5 +14,9 @@ function Search({ setSearchTerm }) {
         </SearchBox>
     );
 }
+
+Search.propTypes = {
+    setSearchTerm: PropTypes.func.isRequired,
+};
 
 export default Search;

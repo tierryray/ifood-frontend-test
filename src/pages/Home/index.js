@@ -8,7 +8,11 @@ import Filters from './Filters';
 import FilterButton from '../../components/FilterButton';
 import Playlists from '../../components/Playlists';
 
+import useAuth from '../../hooks/useAuth';
+
 function Home() {
+    const { signOut } = useAuth();
+
     //  Initial state of playlist
     const [playlists, setPlaylists] = useState([]);
     const [params, setParams] = useState({});
@@ -34,11 +38,13 @@ function Home() {
                 const { items } = data.playlists;
                 setPlaylists(items);
             } catch (error) {
-                console.log(error);
+                if (error.response.status === 401) {
+                    signOut();
+                }
             }
         }
         getFeaturedPlaylists();
-    }, [params]);
+    }, [params, signOut]);
 
     const handleSubmit = useCallback((data) => {
         setParams(data);
@@ -55,24 +61,6 @@ function Home() {
             )
         );
     }, [searchTerm, playlists]);
-
-    // const handleSearch = useCallback(
-    //     (param) => {
-    //         console.log(playlists);
-    //         // if (!param) {
-    //         //     return playlists;
-    //         // }
-
-    //         // const teste = playlists.filter((playlist) =>
-    //         //     playlist.name.toLowerCase().includes(param.toLowerCase())
-    //         // );
-
-    //         // return playlists.filter((playlist) =>
-    //         //     playlist.name.toLowerCase().includes(param.toLowerCase())
-    //         // );
-    //     },
-    //     [playlists]
-    // );
 
     return (
         <div>
