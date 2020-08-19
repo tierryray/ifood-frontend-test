@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Collapse, Container } from '@material-ui/core';
 
+import { toast } from 'react-toastify';
+
 import api from '../../services/api';
 
 import Header from '../../components/Header';
@@ -40,6 +42,8 @@ function Home() {
             } catch (error) {
                 if (error.response.status === 401) {
                     signOut();
+                } else {
+                    toast.error('Ops! Algo deu errado. Tente novamente!');
                 }
             }
         }

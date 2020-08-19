@@ -2,6 +2,9 @@ import React from 'react';
 import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { AuthProvider } from './contexts/auth';
 
 import Routes from './routes/routes';
@@ -29,6 +32,7 @@ function App() {
             <AuthProvider>
                 <Routes />
             </AuthProvider>
+            <ToastContainer position="top-right" autoClose={5000} />
         </ThemeProvider>
     );
 }
