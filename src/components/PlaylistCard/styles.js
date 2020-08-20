@@ -13,7 +13,7 @@ export const StyledCard = styled(motion.div)`
         opacity: 1;
 
         &.visible {
-            opacity: 0.2;
+            opacity: 0.4;
         }
 
         img {
