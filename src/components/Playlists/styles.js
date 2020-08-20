@@ -1,5 +1,22 @@
 import styled from 'styled-components';
 
 export const Section = styled.section`
-    margin: 10px 0;
+    height: 100%;
+`;
+
+export const StyledEmptyMessage = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+    width: 100%;
+    margin-top: -10%;
+    color: #ccc;
+
+    svg {
+        color: #ccc;
+        font-size: 56px;
+        margin-bottom: 10px;
+    }
 `;
