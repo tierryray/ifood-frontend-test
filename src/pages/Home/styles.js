@@ -9,5 +9,5 @@ export const FilterButton = styled(IconButton)`
 `;
 
 export const FilterIcon = styled(FilterList)`
-    color: #ea1d2c;
+    color: ${(props) => props.theme.palette.primary.main};
 `;

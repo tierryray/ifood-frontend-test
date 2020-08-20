@@ -18,6 +18,6 @@ export const StyledFilterButton = styled(IconButton)`
 `;
 
 export const FilterIcon = styled(FilterList)`
-    color: ${({ styled: { filtersVisibility } }) =>
+    color: ${({ styled: { filtersVisibility }, theme }) =>
         filtersVisibility ? '#CCC' : '#ea1d2c'};
 `;

@@ -37,7 +37,7 @@ export const InfoBox = styled(Box)`
 
         &:last-child {
             font-weight: bold;
-            color: #ea1d2c;
+            color: ${(props) => props.theme.palette.primary.main};
         }
     }
 
@@ -84,7 +84,7 @@ export const ButtonBox = styled(Box)`
 `;
 
 export const LoginButton = styled(motion.button)`
-    background: #ea1d2c;
+    background: ${(props) => props.theme.palette.primary.main};
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -96,7 +96,8 @@ export const LoginButton = styled(motion.button)`
     width: 100%;
 
     &:hover {
-        background-color: ${darken(0.1, '#ea1d2c')};
+        background-color: ${(props) =>
+            darken(0.1, props.theme.palette.primary.main)};
     }
 
     @media screen and (min-width: 800px) {
