@@ -9,7 +9,7 @@
   <a href="#-requirements">Requirements</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-technology">Technology</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-cloning">Cloning</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-project">Initializing Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-initializing-project">Initializing Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
 ## 📋 About
@@ -63,7 +63,7 @@ Finally, on the right side click on the **EDIT SETTINGS** button. In the modal t
   $ cd ifood-frontend-test
 ```
 
-## 🚀 Inicializando Projeto
+## 🚀 Initializing Project
 
 ```bash
   # Enter frontend directory:
