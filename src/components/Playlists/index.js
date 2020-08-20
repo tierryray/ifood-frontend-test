@@ -15,7 +15,7 @@ function Playlists({ playlists }) {
                 {playlists.length < 1 && (
                     <StyledEmptyMessage>
                         <Replay />
-                        <h3>Nenhuma música encontrada</h3>
+                        <h3>Nenhuma playlist encontrada</h3>
                     </StyledEmptyMessage>
                 )}
                 {playlists.map((playlist) => (
