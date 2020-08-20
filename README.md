@@ -16,6 +16,8 @@
 
 A web application called Spotifood used to display the preferred playlists from iFood's customers. It consumed the Spotify Web API to know users' favorite playlists.
 
+You can access the live application at http://spotifood-tierry.surge.sh/
+
 ## 🚧 Requirements
 
 -   [**Git**](https://git-scm.com/);
