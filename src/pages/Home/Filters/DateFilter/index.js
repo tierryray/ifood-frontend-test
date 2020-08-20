@@ -34,6 +34,7 @@ export default function DatePicker({ name, onTimestampChange, ...rest }) {
             ref={datepickerRef}
             selected={date}
             onChange={handleTimestampChange}
+            placeholderText="Data"
             {...rest}
         />
     );
