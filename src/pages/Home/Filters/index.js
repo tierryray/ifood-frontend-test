@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
 
+import axios from 'axios';
+
 import TextFilter from './TextFilter';
 import SelectFilter from './SelectFilter';
 import DateFilter from './DateFilter';
 
 import { StyledForm } from './styles';
 
-function Filters({ onSubmit, fetchFilters }) {
+function Filters({ onSubmit }) {
     const filterEndpoint = 'http://www.mocky.io/v2/5a25fade2e0000213aa90776';
 
     const [filters, setFilters] = useState([]);
@@ -76,11 +78,47 @@ function Filters({ onSubmit, fetchFilters }) {
         })();
     }, [params, select, timestamp]);
 
-    useEffect(async () => {
-        const { newFilters, dinamicParams } = await fetchFilters();
-        setFilters(newFilters);
-        setParams(dinamicParams);
-    }, [fetchFilters]);
+    useEffect(() => {
+        (async () => {
+            try {
+                const { data } = await axios.get(filterEndpoint);
+                const dinamicParams = {};
+
+                const newFilters = data.filters.map((filter) => {
+                    if (filter.values) {
+                        return {
+                            ...filter,
+                            type: 'SELECT',
+                        };
+                    }
+
+                    if (filter?.validation?.entityType) {
+                        if (filter.validation.entityType === 'DATE_TIME') {
+                            return {
+                                ...filter,
+                                type: 'DATE',
+                            };
+                        }
+                    }
+
+                    if (filter?.validation?.primitiveType) {
+                        if (filter.validation.primitiveType === 'INTEGER') {
+                            dinamicParams[filter.id] = '';
+                            return {
+                                ...filter,
+                                type: 'NUMBER',
+                            };
+                        }
+                    }
+                });
+
+                setParams(dinamicParams);
+                setFilters(newFilters);
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+    }, []);
 
     return (
         <StyledForm ref={formRef} onSubmit={onSubmit}>

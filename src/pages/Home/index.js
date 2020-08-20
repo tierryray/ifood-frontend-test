@@ -3,7 +3,6 @@ import { Collapse, Container } from '@material-ui/core';
 
 import { toast } from 'react-toastify';
 
-import axios from 'axios';
 import api from '../../services/api';
 
 import Header from '../../components/Header';
@@ -29,6 +28,7 @@ function Home() {
 
     useEffect(() => {
         async function getFeaturedPlaylists() {
+            signOut();
             const newParams = params;
             // eslint-disable-next-line no-restricted-syntax
             for (const prop in newParams) {
@@ -56,47 +56,6 @@ function Home() {
         }
         getFeaturedPlaylists();
     }, [params, signOut]);
-
-    const filterEndpoint = 'http://www.mocky.io/v2/5a25fade2e0000213aa90776';
-
-    const fetchFilters = useCallback(async () => {
-        try {
-            const { data } = await axios.get(filterEndpoint);
-            const dinamicParams = {};
-
-            const newFilters = data.filters.map((filter) => {
-                if (filter.values) {
-                    return {
-                        ...filter,
-                        type: 'SELECT',
-                    };
-                }
-
-                if (filter?.validation?.entityType) {
-                    if (filter.validation.entityType === 'DATE_TIME') {
-                        return {
-                            ...filter,
-                            type: 'DATE',
-                        };
-                    }
-                }
-
-                if (filter?.validation?.primitiveType) {
-                    if (filter.validation.primitiveType === 'INTEGER') {
-                        dinamicParams[filter.id] = '';
-                        return {
-                            ...filter,
-                            type: 'NUMBER',
-                        };
-                    }
-                }
-            });
-
-            return { newFilters, dinamicParams };
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
 
     const handleSubmit = useCallback((data) => {
         setParams(data);
@@ -128,10 +87,7 @@ function Home() {
                     isMobile
                 />
                 <Collapse in={filtersVisibility}>
-                    <Filters
-                        onSubmit={handleSubmit}
-                        fetchFilters={fetchFilters}
-                    />
+                    <Filters onSubmit={handleSubmit} />
                 </Collapse>
 
                 {loading ? (
