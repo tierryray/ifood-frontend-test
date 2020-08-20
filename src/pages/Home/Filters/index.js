@@ -16,14 +16,14 @@ function Filters({ onSubmit }) {
 
     const [filters, setFilters] = useState([]);
 
-    const [params, setParams] = useState(null);
+    const [text, setText] = useState(null);
     const [select, setSelect] = useState(null);
     const [timestamp, setTimestamp] = useState('');
     const formRef = useRef(null);
 
     const handleTextChange = useCallback((event) => {
         const { name, value } = event.target;
-        setParams((prevState) => ({
+        setText((prevState) => ({
             ...prevState,
             [name]: value,
         }));
@@ -76,13 +76,12 @@ function Filters({ onSubmit }) {
                 }
             }
         })();
-    }, [params, select, timestamp]);
+    }, [text, select, timestamp]);
 
     useEffect(() => {
         (async () => {
             try {
                 const { data } = await axios.get(filterEndpoint);
-                const dinamicParams = {};
 
                 const newFilters = data.filters.map((filter) => {
                     if (filter.values) {
@@ -103,7 +102,7 @@ function Filters({ onSubmit }) {
 
                     if (filter?.validation?.primitiveType) {
                         if (filter.validation.primitiveType === 'INTEGER') {
-                            dinamicParams[filter.id] = '';
+                            // dinamicParams[filter.id] = '';
                             return {
                                 ...filter,
                                 type: 'NUMBER',
@@ -112,7 +111,6 @@ function Filters({ onSubmit }) {
                     }
                 });
 
-                setParams(dinamicParams);
                 setFilters(newFilters);
             } catch (error) {
                 console.log(error);

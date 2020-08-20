@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Collapse, Container } from '@material-ui/core';
 
 import { toast } from 'react-toastify';
@@ -18,7 +18,6 @@ function Home() {
 
     //  Initial state of playlist
     const [playlists, setPlaylists] = useState([]);
-    const [params, setParams] = useState({});
     const [filtersVisibility, setFiltersVisibility] = useState(false);
 
     const [filteredPlaylists, setFilteredPlaylists] = useState([]);
@@ -26,50 +25,48 @@ function Home() {
 
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        async function getFeaturedPlaylists() {
-            const newParams = params;
-            // eslint-disable-next-line no-restricted-syntax
-            for (const prop in newParams) {
-                if (newParams[prop] === '' || newParams[prop] === undefined) {
-                    delete newParams[prop];
-                }
-            }
-
-            try {
-                setLoading(true);
-                const { data } = await api.get('/browse/featured-playlists', {
-                    params: newParams,
-                });
-                const { items } = data.playlists;
-                setPlaylists(items);
-            } catch (error) {
-                if (error.response.status === 401) {
-                    signOut();
-                } else {
-                    toast.error('Ops! Algo deu errado. Tente novamente!');
-                }
-            } finally {
-                setLoading(false);
+    async function getFeaturedPlaylists(params) {
+        const newParams = params;
+        // eslint-disable-next-line no-restricted-syntax
+        for (const prop in newParams) {
+            if (newParams[prop] === '' || newParams[prop] === undefined) {
+                delete newParams[prop];
             }
         }
-        getFeaturedPlaylists();
-    }, [params, signOut]);
 
-    const handleSubmit = useCallback((data) => {
-        setParams(data);
-    }, []);
+        try {
+            setLoading(true);
+            const { data } = await api.get('/browse/featured-playlists', {
+                params: newParams,
+            });
+            const { items } = data.playlists;
+            setPlaylists(items);
+        } catch (error) {
+            if (error.response.status === 401) {
+                signOut();
+            } else {
+                toast.error('Ops! Algo deu errado. Tente novamente!');
+            }
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
         if (!searchTerm) {
             setFilteredPlaylists(playlists);
         }
 
-        setFilteredPlaylists(
-            playlists.filter((playlist) =>
-                playlist.name.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-        );
+        const newPlaylists = playlists.map((playlist) => {
+            return {
+                ...playlist,
+                isVisible: !!playlist.name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()),
+            };
+        });
+
+        setFilteredPlaylists(newPlaylists);
     }, [searchTerm, playlists]);
 
     return (
@@ -86,7 +83,7 @@ function Home() {
                     isMobile
                 />
                 <Collapse in={filtersVisibility}>
-                    <Filters onSubmit={handleSubmit} />
+                    <Filters onSubmit={getFeaturedPlaylists} />
                 </Collapse>
 
                 {loading ? (
