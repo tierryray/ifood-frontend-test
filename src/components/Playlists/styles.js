@@ -14,6 +14,10 @@ export const StyledEmptyMessage = styled.div`
     margin-top: -10%;
     color: #ccc;
 
+    @media screen and (min-width: 500px) {
+        margin: 0;
+    }
+
     svg {
         color: #ccc;
         font-size: 56px;
