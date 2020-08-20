@@ -3,7 +3,7 @@ import { CircularProgress } from '@material-ui/core';
 
 import { Container } from './styles';
 
-function LoadingSpinner({ loading }) {
+function LoadingSpinner() {
     return (
         <Container>
             <CircularProgress color="secondary" />

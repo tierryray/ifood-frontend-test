@@ -9,7 +9,7 @@ import { Section } from './styles';
 function Playlists({ playlists }) {
     return (
         <Section>
-            <Grid container spacing={3}>
+            <Grid container spacing={1}>
                 {playlists.map((playlist) => (
                     <PlaylistCard key={playlist.id} playlist={playlist} />
                 ))}

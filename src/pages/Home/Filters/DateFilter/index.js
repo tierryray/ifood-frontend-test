@@ -10,7 +10,7 @@ export default function DatePicker({ name, onTimestampChange, ...rest }) {
     const datepickerRef = useRef(null);
     const { fieldName, registerField, defaultValue } = useField(name);
 
-    const [date, setDate] = useState(defaultValue || new Date());
+    const [date, setDate] = useState(defaultValue || undefined);
 
     useEffect(() => {
         registerField({

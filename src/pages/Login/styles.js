@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
-import { Container, Box, Button } from '@material-ui/core';
+import { Container, Box } from '@material-ui/core';
+import { motion } from 'framer-motion';
 
 export const StyledContainer = styled(Container)`
     display: flex;
@@ -12,7 +13,7 @@ export const StyledContainer = styled(Container)`
     padding: 0 30px;
 `;
 
-export const StyledBox = styled(Box)`
+export const StyledBox = styled(motion.div)`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -82,11 +83,17 @@ export const ButtonBox = styled(Box)`
     width: 100%;
 `;
 
-export const LoginButton = styled(Button)`
+export const LoginButton = styled(motion.button)`
     background: #ea1d2c;
     color: #fff;
-    font-weight: bold;
     padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    transition: 0.15s ease-out all;
+    padding: 20px;
+    font-weight: 500;
+    font-size: 16px;
+    width: 100%;
 
     &:hover {
         background-color: ${darken(0.1, '#ea1d2c')};
@@ -94,6 +101,8 @@ export const LoginButton = styled(Button)`
 
     @media screen and (min-width: 800px) {
         padding: 10px;
-        font-size: 12px;
+        font-size: 18px;
+        width: 200px;
+        padding: 20px 10px;
     }
 `;

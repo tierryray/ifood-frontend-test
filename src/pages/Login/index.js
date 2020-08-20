@@ -1,6 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
 import { Redirect } from 'react-router-dom';
 
+import { motion } from 'framer-motion';
+
 import {
     StyledContainer,
     StyledBox,
@@ -16,7 +18,9 @@ function Login() {
     const { signed, signIn } = useAuth();
 
     const handleSignIn = useCallback(() => {
-        const authEndpoint = `https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&response_type=token&redirect_uri=${process.env.REACT_APP_SPOTIFY_REDIRECT_URL}`;
+        const authEndpoint = `https://accounts.spotify.com/authorize?client_id=${
+            process.env.REACT_APP_SPOTIFY_CLIENT_ID
+        }&response_type=token&redirect_uri=${window.location.toString()}`;
         window.location.href = authEndpoint;
     }, []);
 
@@ -29,16 +33,22 @@ function Login() {
             {signed ? (
                 <Redirect to="/" />
             ) : (
-                <StyledBox>
+                <StyledBox
+                    animate={{ y: [-150, 0], opacity: [0, 1] }}
+                    transition={{
+                        ease: 'easeOut',
+                        duration: 1.0,
+                    }}
+                >
                     <InfoBox>
-                        <img src={iFoodRedLogo} alt="iFood" />
-                        <h1>SpotiFood</h1>
-                        <span>E ouvir música comendo, pode?</span>
-                        <span>Não só pode, como deve!</span>
+                        <motion.img src={iFoodRedLogo} alt="iFood" />
+                        <motion.h1>SpotiFood</motion.h1>
+                        <motion.span>E ouvir música comendo, pode?</motion.span>
+                        <motion.span>Não só pode, como deve!</motion.span>
                     </InfoBox>
                     <ButtonBox>
                         <LoginButton variant="contained" onClick={handleSignIn}>
-                            Bora curtir um som!
+                            BORA!
                         </LoginButton>
                     </ButtonBox>
                 </StyledBox>
