@@ -1,29 +1,77 @@
-# iFood Frontend Test
+<h1 align="center">
+  <p align="center">
+    <img alt="SpotiFood" src="https://logodownload.org/wp-content/uploads/2017/05/ifood-logo.png" width="250px" />
+  </p>
+</h1>
 
-Create a web application called Spotifood used to display the preferred playlists from iFood's customers. The web application has only one page:
+<p align="center">
+  <a href="#prancheta-about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#livro-aberto-requirements">Requirements</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#tubo-de-ensaio-technology">Technology</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#livro-aberto-cloning">Cloning</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#foguete-initializing-project">Initializing Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+</p>
 
--   A page that lists the featured playlists at Spotify according to some criteria.
+## 📋 About
 
-## Business rules
+A web application called Spotifood used to display the preferred playlists from iFood's customers. It consumed the Spotify Web API to know users' favorite playlists.
 
--   The page is composed of two components:
-    -   One list of featured playlists
-    -   One filter component with API filter fields and one local search text input to filter the playlists by "name".
--   The filter component should be used to filter the elements displayed by the list of featured playlists.
--   The API filter fields and their possible values/type should be mounted by consuming this API **[1. Playlists Filters]** (http://www.mocky.io/v2/5a25fade2e0000213aa90776)
--   The featured playlists to be displayed should be consumed from this API **[2. See the documentation from Spotify]** (https://developer.spotify.com/web-api/get-list-featured-playlists/)
--   Every time the user change any information on the filter component, the list should be refresh accordingly. In case of API filter field change you should recall the playlists API with the filter parameters every time.
--   Considering that we live in a chaotic and fast-changing world, the page should refresh its content every 30 seconds, to see if any information from the Spotify APIs had been changed.
+## 🚧 Requirements
 
-## Hints or Constraints
+-   [**Git**](https://git-scm.com/);
+-   [**NodeJS**](https://nodejs.org/en/);
+-   [**Yarn**](https://classic.yarnpkg.com/pt-BR/docs/install/);
+-   Spotify account (see below for more information).
 
-We will use one API from Spotify Web API. You should follow the Spotify guide in order to create a token needed to access Spotify's API.
-To mount the API filter fields on the filter component, you **must** consume the API that provides the metadata about the fields (Link 1).
-You could use Material UI, Bootstrap or any other toolkit to accelerate your resolution. We will not provide any UI prototype or design.
+## 🧪 Technology
 
-## Non functional requirements
+The following tools were used in the construction of the project:
 
-As this application will be a worldwide success, it must be prepared to be accessible, responsive, fault tolerant and resilient.
-We **strongly recommend** using React to build the application.
-Also, briefly elaborate on your solution architecture details, choice of patterns and frameworks.
-Fork this repository and submit your code.
+-   [Node.js](https://nodejs.org/en/)
+-   [React](https://pt-br.reactjs.org/)
+-   [Styled Components](https://styled-components.com/)
+-   [Unform](https://unform.dev/)
+-   [React Toastify](https://github.com/fkhadra/react-toastify)
+-   [Yup](https://github.com/jquense/yup)
+-   [Axios](https://github.com/axios/axios)
+-   [Prop Types](https://www.npmjs.com/package/prop-types)
+-   [React Date Picker](https://reactdatepicker.com/)
+-   [Framer Motion](https://www.framer.com/motion/)
+-   [Material UI](https://material-ui.com/)
+
+> I decided not to adopt Redux in the project because I didn't see the need. It would be like killing an ant with a grenade!
+
+## 🔒 Spotify credentials to run the project locally
+
+You must have a [** developer account on Spotify **](https://developer.spotify.com/dashboard/) (creating this account is completely free and you can use your own Spotify account).
+
+After creating your account, just click on the ** CREATE AN APP ** button and fill in the requested data.
+
+After that, you will have access to your application's Dashboard. On the left side will be your credentials, such as the Client ID, which will be used to fill the frontend's .env file.
+
+Finally, on the right side click on the **EDIT SETTINGS** button. In the modal that opens there will be a component called **Redirects URIs**, in it you will fill in the URL where the project will be running with the route **/login** (Ex: http://localhost:3333/login) . Don't forget to save your changes!
+
+## 📖 Cloning
+
+```bash
+  # Cloning:
+  $ git clone https://github.com/tierryray/ifood-frontend-test.git
+
+  # Enter directory:
+  $ cd ifood-frontend-test
+```
+
+## 🚀 Inicializando Projeto
+
+```bash
+  # Enter frontend directory:
+  $ cd ifood-frontend-test
+
+  # Install the dependencies:
+  $ yarn
+
+  # Run the application:
+  $ yarn start
+```
+
+Made by [Tierry](https://github.com/tierryray)
