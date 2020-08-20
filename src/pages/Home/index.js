@@ -28,7 +28,6 @@ function Home() {
 
     useEffect(() => {
         async function getFeaturedPlaylists() {
-            signOut();
             const newParams = params;
             // eslint-disable-next-line no-restricted-syntax
             for (const prop in newParams) {
