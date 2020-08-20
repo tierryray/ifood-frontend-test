@@ -45,7 +45,7 @@ The following tools were used in the construction of the project:
 
 ## 🔒 Spotify credentials to run the project locally
 
-You must have a [** developer account on Spotify **](https://developer.spotify.com/dashboard/) (creating this account is completely free and you can use your own Spotify account).
+You must have a [**developer account on Spotify**](https://developer.spotify.com/dashboard/) (creating this account is completely free and you can use your own Spotify account).
 
 After creating your account, just click on the ** CREATE AN APP ** button and fill in the requested data.
 
